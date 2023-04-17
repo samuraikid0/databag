@@ -11,7 +11,7 @@ import (
 
 func main() {
 
-	store.SetPath("/var/lib/databag/databag.db")
+	store.SetPath("/var/lib/databag/databag.db?_journal_mode=WAL")
 
 	router := app.NewRouter()
 
