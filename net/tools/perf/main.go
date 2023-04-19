@@ -14,6 +14,7 @@ import (
   "encoding/json"
   "encoding/base64"
 	"github.com/gorilla/websocket"
+  "github.com/kr/pretty"
 )
 
 type Profile struct {
@@ -34,6 +35,39 @@ type LoginAccess struct {
   Created int64 `json:"created"`
   PushSupported bool `json:"pushSupported"`
 }
+type Card struct {
+  ID string `json:"id"`
+  Revision int64 `json:"revision"`
+  Data *CardData `json:"data"`
+}
+type CardData struct {
+  DetailRevision int64 `json:"detailRevision"`
+  ProfileRevision int64 `json:"profileRevision"`
+  NotifiedProfile int64 `json:"notifiedProfile"`
+  NotifiedArticle int64 `json:"notifiedArticle"`
+  NotifiedChannel int64 `json:"notifiedChannel"`
+  NotifiedView int64 `json:"notifiedView"`
+  CardDetail *CardDetail `json:"cardDetail,omitempty"`
+  CardProfile *CardProfile `json:"cardProfile,omitempty"`
+}
+type CardDetail struct {
+  Status string `json:"status"`
+  StatusUpdated int64 `json:"statusUpdated"`
+  Token string `json:"token,omitempty"`
+  Notes string `json:"notes,omitempty"`
+  Groups []string `json:"groups,omitempty"`
+}
+type CardProfile struct {
+  GUID string `json:"guid"`
+  Handle string `json:"handle,omitempty"`
+  Name string `json:"name,omitempty"`
+  Description string `json:"description,omitempty"`
+  Location string `json:"location,omitempty"`
+  ImageSet bool `json:"imageSet"`
+  Seal string `json:"seal,omitempty"`
+  Version string `json:"version,omitempty"`
+  Node string `json:"node"`
+}
 
 var addr = flag.String("addr", "localhost:7000", "databag status connection")
 
@@ -50,8 +84,9 @@ func main() {
   now := time.Now();
   baseHandle := "_" + strconv.Itoa(int(now.Unix())) + "_";
 
+  // create accounts A, B, C, D
   client := &http.Client{}
-  acts := []string{ "A", "B", "C" }
+  acts := []string{ "A", "B", "C", "D" }
   for _, act := range acts {
     var dec *json.Decoder
     var req *http.Request
@@ -79,6 +114,7 @@ func main() {
     }
   }
 
+  // login to each account
   logins := []*LoginAccess{}
   for _, act := range acts {
     var dec *json.Decoder
@@ -101,8 +137,65 @@ func main() {
     logins = append(logins, login)
   }
 
-  // A connects with B, C, D
+  // set each profile to searchable
+  for _, login := range logins {
+    var req *http.Request
+    var err error
 
+    req, err = http.NewRequest("PUT", "http://localhost:7000/account/searchable?agent=" + login.AppToken, bytes.NewBuffer([]byte("true")));
+    _, err = client.Do(req)
+    if err != nil {
+      fmt.Println(err)
+      return
+    }
+  }
+
+  // add the card of each other
+  for i, login := range logins {
+    for j, contact := range logins {
+      if i != j {
+        var req *http.Request
+        var resp *http.Response
+        var err error
+
+        req, err = http.NewRequest("GET", "http://localhost:7000/account/listing/" + contact.GUID + "/message", nil);
+        resp, err = client.Do(req)
+        if err != nil {
+          fmt.Println(err)
+          return
+        }
+
+        req, err = http.NewRequest("POST", "http://localhost:7000/contact/cards?agent=" + login.AppToken, resp.Body);
+        _, err = client.Do(req)
+        if err != nil {
+          fmt.Println(err)
+          return
+        }
+      }
+    }
+  }
+
+  // request each other as contact
+  for _, login := range logins {
+    var dec *json.Decoder
+    var req *http.Request
+    var resp *http.Response
+    var err error
+
+    req, err = http.NewRequest("GET", "http://localhost:7000/contact/cards?agent=" + login.AppToken, nil);
+    resp, err = client.Do(req)
+    if err != nil {
+      fmt.Println(err)
+      return
+    }
+
+    cards := &[]Card{}
+    dec = json.NewDecoder(resp.Body)
+    dec.Decode(cards)
+    pretty.Println(cards);
+  }
+
+  // A connects with B, C, D
   // A creates thread with B, C, D
 
   // A posts X nessages
