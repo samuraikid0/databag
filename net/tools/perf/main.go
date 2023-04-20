@@ -192,8 +192,51 @@ func main() {
     cards := &[]Card{}
     dec = json.NewDecoder(resp.Body)
     dec.Decode(cards)
+
+    for _, card := range *cards {
+      req, err = http.NewRequest("PUT", "http://localhost:7000/contact/cards/" + card.ID + "/status?agent=" + login.AppToken, bytes.NewBuffer([]byte("\"connecting\"")));
+      resp, err = client.Do(req)
+      if err != nil || resp.StatusCode / 100 != 2 {
+        fmt.Println("set card status failed")
+        return
+      }
+      req, err = http.NewRequest("GET", "http://localhost:7000/contact/cards/" + card.ID + "/openMessage?agent=" + login.AppToken, nil);
+      resp, err = client.Do(req)
+      if err != nil || resp.StatusCode / 100 != 2 {
+        fmt.Println("get open message failed")
+        return
+      }
+      req, err = http.NewRequest("PUT", "http://localhost:7000/contact/cards/openMessage", resp.Body);
+      _, err = client.Do(req)
+      if err != nil || resp.StatusCode / 100 != 2 {
+        fmt.Println("set open message failed")
+        return
+      }
+    }
+  }
+
+
+  // request each other as contact
+  for _, login := range logins {
+    var dec *json.Decoder
+    var req *http.Request
+    var resp *http.Response
+    var err error
+
+    req, err = http.NewRequest("GET", "http://localhost:7000/contact/cards?agent=" + login.AppToken, nil);
+    resp, err = client.Do(req)
+    if err != nil {
+      fmt.Println(err)
+      return
+    }
+
+    fmt.Println("******");
+    cards := &[]Card{}
+    dec = json.NewDecoder(resp.Body)
+    dec.Decode(cards)
     pretty.Println(cards);
   }
+
 
   // A connects with B, C, D
   // A creates thread with B, C, D
