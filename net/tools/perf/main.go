@@ -6,6 +6,7 @@ import (
 	"net/url"
 	"os"
   "fmt"
+  "errors"
   "bytes"
 	"os/signal"
 	"time"
@@ -68,8 +69,168 @@ type CardProfile struct {
   Version string `json:"version,omitempty"`
   Node string `json:"node"`
 }
+type ContactStatus struct {
+  Token string `json:"token,omitempty"`
+  ProfileRevision int64 `json:"profileRevision,omitempty"`
+  ArticleRevision int64 `json:"articleRevision,omitempty"`
+  ChannelRevision int64 `json:"channelRevision,omitempty"`
+  ViewRevision int64 `json:"viewRevision,omitempty"`
+  Status string `json:"status"`
+}
 
 var addr = flag.String("addr", "localhost:7000", "databag status connection")
+
+func run(baseHandle string, acts []string) (error) {
+  client := &http.Client{}
+
+  // login to each account
+  logins := []*LoginAccess{}
+  for _, act := range acts {
+    var dec *json.Decoder
+    var req *http.Request
+    var resp *http.Response
+    var err error
+
+    req, err = http.NewRequest("POST", "http://localhost:7000/account/apps?appName=perf&appVersion=0", bytes.NewBuffer([]byte("[]")));
+    auth := base64.StdEncoding.EncodeToString([]byte(baseHandle + act + ":pass"))
+    req.Header.Add("Authorization", "Basic "+auth)
+    resp, err = client.Do(req)
+    if err != nil || resp.StatusCode / 100 != 2 {
+      return errors.New("failed to create account");
+    }
+
+    login := &LoginAccess{}
+    dec = json.NewDecoder(resp.Body)
+    dec.Decode(login)
+    logins = append(logins, login)
+  }
+
+  // set each profile to searchable
+  for _, login := range logins {
+    var req *http.Request
+    var resp *http.Response
+    var err error
+
+    req, err = http.NewRequest("PUT", "http://localhost:7000/account/searchable?agent=" + login.AppToken, bytes.NewBuffer([]byte("true")));
+    resp, err = client.Do(req)
+    if err != nil || resp.StatusCode / 100 != 2 {
+      return errors.New("failed to set account to searchable");
+    }
+  }
+
+  // add the card of each other
+  for i, login := range logins {
+    for j, contact := range logins {
+      if i != j {
+        var req *http.Request
+        var resp *http.Response
+        var err error
+
+        req, err = http.NewRequest("GET", "http://localhost:7000/account/listing/" + contact.GUID + "/message", nil);
+        resp, err = client.Do(req)
+        if err != nil || resp.StatusCode / 100 != 2 {
+          return errors.New("failed to get contact profile");
+        }
+
+        req, err = http.NewRequest("POST", "http://localhost:7000/contact/cards?agent=" + login.AppToken, resp.Body);
+        resp, err = client.Do(req)
+        if err != nil || resp.StatusCode / 100 != 2 {
+          return errors.New("failed to set contact profile");
+        }
+      }
+    }
+  }
+
+  // request each other as contact
+  for _, login := range logins {
+    var dec *json.Decoder
+    var req *http.Request
+    var resp *http.Response
+    var err error
+
+    req, err = http.NewRequest("GET", "http://localhost:7000/contact/cards?agent=" + login.AppToken, nil);
+    resp, err = client.Do(req)
+    if err != nil || resp.StatusCode / 100 != 2 {
+      return errors.New("failed to retrieve cards");
+    }
+
+    cards := &[]Card{}
+    dec = json.NewDecoder(resp.Body)
+    dec.Decode(cards)
+
+    for _, card := range *cards {
+      if card.Data.CardDetail.Status != "connected" {
+        req, err = http.NewRequest("PUT", "http://localhost:7000/contact/cards/" + card.ID + "/status?agent=" + login.AppToken, bytes.NewBuffer([]byte("\"connecting\"")));
+        resp, err = client.Do(req)
+        if err != nil || resp.StatusCode / 100 != 2 {
+          return errors.New("set card status failed")
+        }
+        req, err = http.NewRequest("GET", "http://localhost:7000/contact/cards/" + card.ID + "/openMessage?agent=" + login.AppToken, nil);
+        resp, err = client.Do(req)
+        if err != nil || resp.StatusCode / 100 != 2 {
+          return errors.New("get open message failed")
+        }
+        req, err = http.NewRequest("PUT", "http://localhost:7000/contact/openMessage", resp.Body);
+        resp, err = client.Do(req)
+        if err != nil || resp.StatusCode / 100 != 2 {
+          return errors.New("set open message failed")
+        }
+
+        connection := &ContactStatus{}
+        dec = json.NewDecoder(resp.Body)
+        dec.Decode(connection)
+        if connection.Status == "connected" {
+          params := "?agent=" + login.AppToken
+          params += "&token=" + connection.Token
+          params += "&viewRevision=" + strconv.Itoa(int(connection.ViewRevision))
+          params += "&profileRevision=" + strconv.Itoa(int(connection.ProfileRevision))
+          params += "&channelRevision=" + strconv.Itoa(int(connection.ChannelRevision))
+          params += "&attributeRevision=" + strconv.Itoa(int(connection.ArticleRevision))
+          req, err = http.NewRequest("PUT", "http://localhost:7000/contact/cards/" + card.ID + "/status" + params, bytes.NewBuffer([]byte("\"connected\"")));
+          resp, err = client.Do(req)
+          if err != nil || resp.StatusCode / 100 != 2 {
+            return errors.New("set card status failed")
+          }
+        }
+      }
+    }
+  }
+
+  // A creates thread with B, C, D
+
+  //debug status
+  for _, login := range logins {
+    var dec *json.Decoder
+    var req *http.Request
+    var resp *http.Response
+    var err error
+
+    req, err = http.NewRequest("GET", "http://localhost:7000/contact/cards?agent=" + login.AppToken, nil);
+    resp, err = client.Do(req)
+    if err != nil || resp.StatusCode / 100 != 2 {
+      return errors.New("failed to get contacts");
+    }
+
+    fmt.Println("******");
+    cards := &[]Card{}
+    dec = json.NewDecoder(resp.Body)
+    dec.Decode(cards)
+    pretty.Println(cards);
+  }
+
+
+  // A posts X nessages
+
+  // B, C, D see X messages
+
+  // B posts Y messages
+
+  // A, C, D see Y messages
+
+  // C, D post/wait Z messages
+
+  return nil;
+}
 
 func main() {
 
@@ -114,142 +275,9 @@ func main() {
     }
   }
 
-  // login to each account
-  logins := []*LoginAccess{}
-  for _, act := range acts {
-    var dec *json.Decoder
-    var req *http.Request
-    var resp *http.Response
-    var err error
-
-    req, err = http.NewRequest("POST", "http://localhost:7000/account/apps?appName=perf&appVersion=0", bytes.NewBuffer([]byte("[]")));
-    auth := base64.StdEncoding.EncodeToString([]byte(baseHandle + act + ":pass"))
-    req.Header.Add("Authorization", "Basic "+auth)
-    resp, err = client.Do(req)
-    if err != nil {
-      fmt.Println(err)
-      return
-    }
-
-    login := &LoginAccess{}
-    dec = json.NewDecoder(resp.Body)
-    dec.Decode(login)
-    logins = append(logins, login)
+  if err := run(baseHandle, acts); err != nil {
+    fmt.Println(err);
   }
-
-  // set each profile to searchable
-  for _, login := range logins {
-    var req *http.Request
-    var err error
-
-    req, err = http.NewRequest("PUT", "http://localhost:7000/account/searchable?agent=" + login.AppToken, bytes.NewBuffer([]byte("true")));
-    _, err = client.Do(req)
-    if err != nil {
-      fmt.Println(err)
-      return
-    }
-  }
-
-  // add the card of each other
-  for i, login := range logins {
-    for j, contact := range logins {
-      if i != j {
-        var req *http.Request
-        var resp *http.Response
-        var err error
-
-        req, err = http.NewRequest("GET", "http://localhost:7000/account/listing/" + contact.GUID + "/message", nil);
-        resp, err = client.Do(req)
-        if err != nil {
-          fmt.Println(err)
-          return
-        }
-
-        req, err = http.NewRequest("POST", "http://localhost:7000/contact/cards?agent=" + login.AppToken, resp.Body);
-        _, err = client.Do(req)
-        if err != nil {
-          fmt.Println(err)
-          return
-        }
-      }
-    }
-  }
-
-  // request each other as contact
-  for _, login := range logins {
-    var dec *json.Decoder
-    var req *http.Request
-    var resp *http.Response
-    var err error
-
-    req, err = http.NewRequest("GET", "http://localhost:7000/contact/cards?agent=" + login.AppToken, nil);
-    resp, err = client.Do(req)
-    if err != nil {
-      fmt.Println(err)
-      return
-    }
-
-    cards := &[]Card{}
-    dec = json.NewDecoder(resp.Body)
-    dec.Decode(cards)
-
-    for _, card := range *cards {
-      req, err = http.NewRequest("PUT", "http://localhost:7000/contact/cards/" + card.ID + "/status?agent=" + login.AppToken, bytes.NewBuffer([]byte("\"connecting\"")));
-      resp, err = client.Do(req)
-      if err != nil || resp.StatusCode / 100 != 2 {
-        fmt.Println("set card status failed")
-        return
-      }
-      req, err = http.NewRequest("GET", "http://localhost:7000/contact/cards/" + card.ID + "/openMessage?agent=" + login.AppToken, nil);
-      resp, err = client.Do(req)
-      if err != nil || resp.StatusCode / 100 != 2 {
-        fmt.Println("get open message failed")
-        return
-      }
-      req, err = http.NewRequest("PUT", "http://localhost:7000/contact/cards/openMessage", resp.Body);
-      _, err = client.Do(req)
-      if err != nil || resp.StatusCode / 100 != 2 {
-        fmt.Println("set open message failed")
-        return
-      }
-    }
-  }
-
-
-  // request each other as contact
-  for _, login := range logins {
-    var dec *json.Decoder
-    var req *http.Request
-    var resp *http.Response
-    var err error
-
-    req, err = http.NewRequest("GET", "http://localhost:7000/contact/cards?agent=" + login.AppToken, nil);
-    resp, err = client.Do(req)
-    if err != nil {
-      fmt.Println(err)
-      return
-    }
-
-    fmt.Println("******");
-    cards := &[]Card{}
-    dec = json.NewDecoder(resp.Body)
-    dec.Decode(cards)
-    pretty.Println(cards);
-  }
-
-
-  // A connects with B, C, D
-  // A creates thread with B, C, D
-
-  // A posts X nessages
-
-  // B, C, D see X messages
-
-  // B posts Y messages
-
-  // A, C, D see Y messages
-
-  // C, D post/wait Z messages
 
   for _, act := range acts {
     var req *http.Request
