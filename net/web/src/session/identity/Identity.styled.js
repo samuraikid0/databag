@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import Colors from 'constants/Colors';
+import { LightColors, DarkColors } from 'constants/Colors';
 
 export const IdentityWrapper = styled.div`
   width: 100%;
@@ -9,13 +9,24 @@ export const IdentityWrapper = styled.div`
   align-items: center;
   padding-left: 16px;
   padding-right: 16px;
-  border-bottom: 1px solid ${Colors.divider};
-  background-color: ${Colors.formBackground};
+  @media (prefers-color-scheme: light) {
+    border-bottom: 1px solid ${LightColors.divider};
+    background-color: ${LightColors.formBackground};
+  }
+  @media (prefers-color-scheme: dark) {
+    border-bottom: 1px solid ${DarkColors.divider};
+    background-color: ${DarkColors.formBackground};
+  }
   flex-shrink: 0;
 
   &:hover {
     cursor: pointer;
-    background-color: ${Colors.formFocus};
+    @media (prefers-color-scheme: light) {
+      background-color: ${LightColors.formFocus};
+    }
+    @media (prefers-color-scheme: dark) {
+      background-color: ${DarkColors.formFocus};
+    }
 
     .drop {
       font-weight: bold;
@@ -26,7 +37,14 @@ export const IdentityWrapper = styled.div`
     padding-left: 4px;
     padding-right: 4px;
     border-radius: 8px;
-    border: 1px solid ${Colors.formBackground};
+    @media (prefers-color-scheme: light) {
+      border: 1px solid ${LightColors.itemBorder};
+      color: ${LightColors.text};
+    }
+    @media (prefers-color-scheme: dark) {
+      border: 1px solid ${DarkColors.itemBorder};
+      color: ${DarkColors.text};
+    }
   }
 
   .label {
@@ -36,6 +54,12 @@ export const IdentityWrapper = styled.div`
     align-items: center;
     justify-content: center;
     line-height: 16px;
+    @media (prefers-color-scheme: light) {
+      color: ${LightColors.text};
+    }
+    @media (prefers-color-scheme: dark) {
+      color: ${DarkColors.text};
+    }
 
     .name {
       font-size: 14px;
@@ -60,10 +84,20 @@ export const IdentityWrapper = styled.div`
 `;
 
 export const ErrorNotice = styled.div`
-  color: ${Colors.alert};
+  @media (prefers-color-scheme: light) {
+    color: ${LightColors.alert};
+  }
+  @media (prefers-color-scheme: dark) {
+    color: ${DarkColors.alert};
+  }
 `
 
 export const InfoNotice = styled.div`
-  color: ${Colors.primary};
+  @media (prefers-color-scheme: light) {
+    color: ${LightColors.primary};
+  }
+  @media (prefers-color-scheme: dark) {
+    color: ${DarkColors.primary};
+  }
 `
 

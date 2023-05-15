@@ -42,10 +42,10 @@ export function Identity({ openAccount, openCards, cardUpdated }) {
         { state.init && (
           <Logo url={state.url} width={40} height={40} radius={4} />
         )}
-        <div class="label">
-          <div class="name">{state.name}</div>
-          <div class="handle">
-            <div class="notice">
+        <div className="label">
+          <div className="name">{state.name}</div>
+          <div className="handle">
+            <div className="notice">
               { state.status !== 'connected' && ( 
                 <Tooltip placement="right" title="disconnected from server">
                   <ErrorNotice>
@@ -55,7 +55,7 @@ export function Identity({ openAccount, openCards, cardUpdated }) {
               )}
             </div>
             <div>{state.handle}</div>
-            <div class="notice">
+            <div className="notice">
               { cardUpdated && (
                 <Tooltip placement="right" title="contacts have updated">
                   <InfoNotice>
@@ -66,8 +66,8 @@ export function Identity({ openAccount, openCards, cardUpdated }) {
             </div>
           </div>
         </div>
-        <div class="drop">
-          <DownOutlined />
+        <div className="drop">
+          <DownOutlined clasName="dropIcon" />
         </div>
       </IdentityWrapper>
     </Dropdown>
