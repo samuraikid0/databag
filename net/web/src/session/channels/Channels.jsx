@@ -16,18 +16,18 @@ export function Channels({ open, active }) {
 
   return (
     <ChannelsWrapper>
-      <div class="search">
-        <div class="filter">
+      <div className="search">
+        <div className="filter">
           <Input bordered={false} allowClear={true} placeholder="Topics" prefix={<SearchOutlined />}
               spellCheck="false" onChange={(e) => actions.onFilter(e.target.value)} />
         </div>
         { state.display === 'small' && (
-          <div class="inline">
+          <div className="inline">
             <Button type="primary" icon={<CommentOutlined />} onClick={actions.setShowAdd}>New</Button>
           </div>
         )}
       </div>
-      <div class="view">
+      <div className="view">
         { state.channels.length > 0 && (
           <List local={{ emptyText: '' }} itemLayout="horizontal" dataSource={state.channels} gutter="0"
             renderItem={item => (
@@ -37,11 +37,11 @@ export function Channels({ open, active }) {
           />
         )}
         { state.channels.length === 0 && (
-          <div class="empty">No Topics</div>
+          <div className="empty">No Topics</div>
         )}
       </div>
       { state.display !== 'small' && (
-        <div class="bar">
+        <div className="bar">
           <Button type="primary" icon={<CommentOutlined />} onClick={actions.setShowAdd}>New Topic</Button>
         </div>
       )}

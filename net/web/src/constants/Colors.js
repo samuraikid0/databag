@@ -6,6 +6,7 @@ export const LightColors = {
   darkBackground: '#222222',
   formFocus: '#f8f8f8',
   formHover: '#efefef',
+  faded: '#888888',
   grey: '#888888',
   white: '#ffffff',
   black: '#000000',
@@ -17,8 +18,9 @@ export const LightColors = {
   enabled: '#444444',
   disabled: '#aaaaaa',
   text: '#444444',
+  dimText: '#888888',
   link: '#0077CC',
-
+  inputBackground: '#ffffff',
   itemDivider: '#eeeeee',
   
   connected: '#44cc44',
@@ -29,6 +31,7 @@ export const LightColors = {
   error: '#ff4444',
 
   profileForm: '#e8e8e8',
+  selected: '#e8e8e8',
   profileDivider: '#aaaaaa',
   statsForm: '#ededed',
   statsDivider: '#afafaf',
@@ -45,11 +48,12 @@ export const DarkColors = {
   itemBorder: '#aaaaaa',
   darkBackground: '#222222',
   formFocus: '#444444',
-  formHover: '#efefef',
+  formHover: '#555555',
+  faded: '#888888',
   grey: '#888888',
   white: '#ffffff',
   black: '#000000',
-  divider: '#eeeeee',
+  divider: '#999999',
   mask: '#dddddd',
   encircle: '#cccccc',
   alert: '#ff8888',
@@ -57,9 +61,10 @@ export const DarkColors = {
   enabled: '#444444',
   disabled: '#aaaaaa',
   text: '#eeeeee',
+  dimText: '#aaaaaa',
   link: '#0077CC',
-
-  itemDivider: '#eeeeee',
+  inputBackground: '#111111',
+  itemDivider: '#888888',
   
   connected: '#44cc44',
   connecting: '#dd88ff',
@@ -69,6 +74,7 @@ export const DarkColors = {
   error: '#ff4444',
 
   profileForm: '#e8e8e8',
+  selected: '#5e5e5e',
   profileDivider: '#aaaaaa',
   statsForm: '#ededed',
   statsDivider: '#afafaf',

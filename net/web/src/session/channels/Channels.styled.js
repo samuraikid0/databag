@@ -1,12 +1,17 @@
 import styled from 'styled-components';
-import Colors from 'constants/Colors';
+import { LightColors, DarkColors } from 'constants/Colors';
 
 export const ChannelsWrapper = styled.div`
   height: 100%;
   width: 100%;
   display: flex;
   flex-direction: column;
-  background-color: ${Colors.formFocus};
+  @media (prefers-color-scheme: light) {
+    background-color: ${LightColors.formFocus};
+  }
+  @media (prefers-color-scheme: dark) {
+    background-color: ${DarkColors.formFocus};
+  }
 
   .view {
     min-height: 0;
@@ -18,8 +23,13 @@ export const ChannelsWrapper = styled.div`
       align-items: center;
       justify-content: center;
       font-style: italic;
-      color: ${Colors.grey};
       height: 100%;
+      @media (prefers-color-scheme: light) {
+        color: ${LightColors.dimText};
+      }
+      @media (prefers-color-scheme: dark) {
+        color: ${DarkColors.dimText};
+      }
     }
   }
  
@@ -28,16 +38,56 @@ export const ChannelsWrapper = styled.div`
     padding-bottom: 8px;
     padding-left: 16px;
     padding-right: 16px;
-    border-bottom: 1px solid ${Colors.divider};
+    @media (prefers-color-scheme: light) {
+      border-bottom: 1px solid ${LightColors.divider};
+    }
+    @media (prefers-color-scheme: dark) {
+      border-bottom: 1px solid ${DarkColors.divider};
+    }
     display: flex;
     flex-direction: row;
     height: 48px;
 
     .filter {
-      border: 1px solid ${Colors.divider};
-      background-color: ${Colors.white};
+      @media (prefers-color-scheme: light) {
+        color: ${LightColors.text};
+        border: 1px solid ${LightColors.divider};
+        background-color: ${LightColors.inputBackground};
+      }
+      @media (prefers-color-scheme: dark) {
+        color: ${DarkColors.text};
+        border: 1px solid ${DarkColors.divider};
+        background-color: ${DarkColors.inputBackground};
+      }
       border-radius: 8px;
       flex-grow: 1;
+
+      .ant-input-prefix {
+        @media (prefers-color-scheme: light) {
+          color: ${LightColors.text};
+        }
+        @media (prefers-color-scheme: dark) {
+          color: ${DarkColors.text};
+        }
+      }
+
+      .ant-input {
+        @media (prefers-color-scheme: light) {
+          color: ${LightColors.text};
+        }
+        @media (prefers-color-scheme: dark) {
+          color: ${DarkColors.text};
+        }
+
+        ::placeholder {
+          @media (prefers-color-scheme: light) {
+            color: ${LightColors.dimText};
+          }
+          @media (prefers-color-scheme: dark) {
+            color: ${DarkColors.dimText};
+          }
+        }
+      }
     }
 
     .inline {
@@ -60,8 +110,14 @@ export const ChannelsWrapper = styled.div`
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    background-color: ${Colors.formBackground};
-    border-top: 1px solid ${Colors.divider};
+    @media (prefers-color-scheme: light) {
+      background-color: ${LightColors.formBackground};
+      border-top: 1px solid ${LightColors.divider};
+    }
+    @media (prefers-color-scheme: dark) {
+      background-color: ${DarkColors.formBackground};
+      border-top: 1px solid ${DarkColors.divider};
+    }
     padding-bottom: 10px;
     padding-top: 10px;
     position: relative;
@@ -70,8 +126,8 @@ export const ChannelsWrapper = styled.div`
   .add {
     display: flex;
     flex-direction: row;
-    background-color: ${Colors.primary};
-    color: ${Colors.white};
+    background-color: ${LightColors.primary};
+    color: ${LightColors.white};
     align-items: center;
     justify-content: center;
     padding-left: 16px;

@@ -1,22 +1,39 @@
 import styled from 'styled-components';
-import Colors from 'constants/Colors';
+import { LightColors, DarkColors } from 'constants/Colors';
 
 export const ChannelItemWrapper = styled.div`
   height: 48px;
   width: 100%;
   display: flex;
   align-items: center;
-  border-bottom: 1px solid ${Colors.itemDivider};
   line-height: 16px;
   cursor: pointer;
   overflow: hidden;
+  @media (prefers-color-scheme: light) {
+    border-bottom: 1px solid ${LightColors.itemDivider};
+    color: ${LightColors.text};
+  }
+  @media (prefers-color-scheme: dark) {
+    border-bottom: 1px solid ${DarkColors.itemDivider};
+    color: ${DarkColors.text};
+  }
 
   &:hover {
-    background-color: ${Colors.formHover};
+    @media (prefers-color-scheme: light) {
+      background-color: ${LightColors.formHover};
+    }
+    @media (prefers-color-scheme: dark) {
+      background-color: ${DarkColors.formHover};
+    }
   }
 
   .active {
-    background-color: ${Colors.profileForm};
+    @media (prefers-color-scheme: light) {
+      background-color: ${LightColors.selected};
+    }
+    @media (prefers-color-scheme: dark) {
+      background-color: ${DarkColors.selected};
+    }
     width: 100%;
     height: 100%;
     display: flex;
@@ -48,7 +65,12 @@ export const ChannelItemWrapper = styled.div`
       display: flex;
       align-items: center;
       justify-content: center;
-      border: 1px solid ${Colors.grey};
+      @media (prefers-color-scheme: light) {
+        border: 1px solid ${LightColors.faded};
+      }
+      @media (prefers-color-scheme: dark) {
+        border: 1px solid ${DarkColors.faded};
+      }
       width: 32px;
       height: 32px;
       border-radius: 4px;
@@ -74,7 +96,12 @@ export const ChannelItemWrapper = styled.div`
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
-        color: ${Colors.disabled};
+        @media (prefers-color-scheme: light) {
+          color: ${LightColors.dimText};
+        }
+        @media (prefers-color-scheme: dark) {
+          color: ${DarkColors.dimText};
+        }
       }
     }
   }
@@ -84,7 +111,7 @@ export const Markup = styled.div`
   position: absolute;
   right: 0;
   border-radius: 8px;
-  background-color: ${Colors.background};
+  background-color: ${LightColors.background};
   width: 8px;
   height: 8px;
   margin-right: 8px;
