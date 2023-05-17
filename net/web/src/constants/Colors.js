@@ -19,6 +19,7 @@ export const LightColors = {
   disabled: '#aaaaaa',
   text: '#444444',
   dimText: '#888888',
+  backgroundText: '#444444',
   link: '#0077CC',
   inputBackground: '#ffffff',
   itemDivider: '#eeeeee',
@@ -42,12 +43,12 @@ export const LightColors = {
 };
 
 export const DarkColors = {
-  background: '#8fbea7',
+  background: '#424242',
   primary: '#448866',
   formBackground: '#222222',
   itemBorder: '#aaaaaa',
   darkBackground: '#222222',
-  formFocus: '#444444',
+  formFocus: '#282828',
   formHover: '#555555',
   faded: '#888888',
   grey: '#888888',
@@ -62,9 +63,10 @@ export const DarkColors = {
   disabled: '#aaaaaa',
   text: '#eeeeee',
   dimText: '#aaaaaa',
+  backgroundText: '#999999',
   link: '#0077CC',
   inputBackground: '#111111',
-  itemDivider: '#888888',
+  itemDivider: '#555555',
   
   connected: '#44cc44',
   connecting: '#dd88ff',
@@ -74,7 +76,7 @@ export const DarkColors = {
   error: '#ff4444',
 
   profileForm: '#e8e8e8',
-  selected: '#5e5e5e',
+  selected: '#444444',
   profileDivider: '#aaaaaa',
   statsForm: '#ededed',
   statsDivider: '#afafaf',

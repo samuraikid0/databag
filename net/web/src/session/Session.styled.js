@@ -1,12 +1,12 @@
 import styled from 'styled-components';
-import Colors from 'constants/Colors';
+import { LightColors, DarkColors } from 'constants/Colors';
 
 export const RingingWrapper = styled.div`
   .ringing-list {
     padding: 4px;
     display: flex;
     flex-direction: column;
-    background-color: ${Colors.darkBackground};
+    background-color: ${LightColors.darkBackground};
 
     .ringing-entry {
       display: flex;
@@ -15,42 +15,42 @@ export const RingingWrapper = styled.div`
       padding-left: 8px;
 
       .ringing-accept {
-        color: ${Colors.primary};
+        color: ${LightColors.primary};
         font-size: 18;
         width: 32px;
         height: 32px;
         display: flex;
         align-items: center;
         justify-content: center;
-        background-color: ${Colors.white};
+        background-color: ${LightColors.white};
         border-radius: 16px;
         margin: 8px;
         cursor: pointer;
       }
 
       .ringing-ignore {
-        color: ${Colors.grey};
+        color: ${LightColors.grey};
         font-size: 18;
         width: 32px;
         height: 32px;
         display: flex;
         align-items: center;
         justify-content: center;
-        background-color: ${Colors.white};
+        background-color: ${LightColors.white};
         border-radius: 16px;
         margin: 8px;
         cursor: pointer;
       }
     
       .ringing-decline {
-        color: ${Colors.alert};
+        color: ${LightColors.alert};
         font-size: 18;
         width: 32px;
         height: 32px;
         display: flex;
         align-items: center;
         justify-content: center;
-        background-color: ${Colors.white};
+        background-color: ${LightColors.white};
         border-radius: 16px;
         margin: 8px;
         transform: rotate(224deg);
@@ -65,7 +65,7 @@ export const RingingWrapper = styled.div`
         text-overflow: ellipsis;
         display: flex;
         justify-content: center;
-        color: ${Colors.white};
+        color: ${LightColors.white};
       }
     }
   }
@@ -100,9 +100,9 @@ export const CallingWrapper = styled.div`
   .calling-end {
     position: absolute;
     bottom: 16px;
-    color: ${Colors.white};
+    color: ${LightColors.white};
     font-size: 24px;
-    background-color: ${Colors.alert};
+    background-color: ${LightColors.alert};
     display: none;
     align-items: center;
     justify-content: center;
@@ -120,9 +120,9 @@ export const CallingWrapper = styled.div`
   }
 
   .calling-option {
-    color: ${Colors.white};
+    color: ${LightColors.white};
     font-size: 24px;
-    background-color: ${Colors.primary};
+    background-color: ${LightColors.primary};
     display: flex;
     align-items: center;
     justify-content: center;
@@ -144,6 +144,11 @@ export const SessionWrapper = styled.div`
     width: 100%;
     height: 100%;
     z-index: 2;
+  }
+
+  .darken {
+    background-color: 'black';
+    opacity: 0.4;
   }
 
   .spinner {
@@ -182,6 +187,13 @@ export const SessionWrapper = styled.div`
     .center {
       flex-grow: 1;
       position: relative;
+
+      @media (prefers-color-scheme: light) {
+        background-color: ${LightColors.background};
+      }
+      @media (prefers-color-scheme: dark) {
+        background-color: ${DarkColors.background};
+      }
     }
     .right {
       min-width: 256px;
@@ -191,6 +203,13 @@ export const SessionWrapper = styled.div`
       display: flex;
       flex-direction: column;
       position: relative;
+
+      @media (prefers-color-scheme: light) {
+        background-color: ${LightColors.background};
+      }
+      @media (prefers-color-scheme: dark) {
+        background-color: ${DarkColors.background};
+      }
     }
   }
 
@@ -217,6 +236,13 @@ export const SessionWrapper = styled.div`
     .right {
       flex-grow: 1;
       position: relative;
+
+      @media (prefers-color-scheme: light) {
+        background-color: ${LightColors.background};
+      }
+      @media (prefers-color-scheme: dark) {
+        background-color: ${DarkColors.background};
+      }
 
       .drawer {
         padding: 0px;

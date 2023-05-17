@@ -3,16 +3,18 @@ import { RightOutlined } from '@ant-design/icons';
 import { Space } from 'antd';
 
 import session from 'images/session.png';
+import darken from 'images/darken.png';
 
 export function Welcome() {
   return (
     <WelcomeWrapper>
-      <div class="title">
-        <div class="header">Databag</div>
+      <div className="title">
+        <div className="header">Databag</div>
         <div>Communication for the decentralized web</div>
       </div>
-      <img class="session" src={session} alt="Session Background" />
-      <div class="message">
+      <img className="session" src={session} alt="Session Background" />
+      <img className="darken" src={darken} alt="Session Background" />
+      <div className="message">
         <Space>
           <div>Setup your profile</div>
           <RightOutlined />
