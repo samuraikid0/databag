@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import Colors from 'constants/Colors';
+import { LightColors, DarkColors } from 'constants/Colors';
 
 export const CardSelectWrapper = styled.div`
   display: flex;
@@ -11,7 +11,12 @@ export const CardSelectWrapper = styled.div`
     align-items: center;
     justify-content: center;
     font-style: italic;
-    color: ${Colors.grey};
+    @media (prefers-color-scheme: light) {
+      color: ${LightColors.dimText};
+    }
+    @media (prefers-color-scheme: dark) {
+      color: ${DarkColors.dimText};
+    }
     padding-top: 16px;
   }
 

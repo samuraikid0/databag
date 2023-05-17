@@ -83,7 +83,7 @@ export const DarkColors = {
   channel: '#f2f2f2',
   card: '#eeeeee',
 
-  selectHover: '#fafafa',
+  selectHover: '#555555',
 };
 
 export default LightColors;

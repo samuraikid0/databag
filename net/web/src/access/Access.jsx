@@ -5,6 +5,7 @@ import { Admin } from './admin/Admin';
 import { CreateAccount } from './createAccount/CreateAccount';
 
 import login from 'images/login.png'
+import portal from 'images/portal.png'
 
 export function Access({ mode }) {
 
@@ -15,7 +16,8 @@ export function Access({ mode }) {
       { (state.display === 'large' || state.display === 'xlarge') && (
         <div className="split-layout">
           <div className="left">
-            <img className="splash" src={login} alt="Databag Splash" />
+            <img className="lightsplash" src={login} alt="Databag Splash" />
+            <img className="darksplash" src={portal} alt="Databag Splash" />
           </div>
           <div className="right">
             { mode === 'login' && (

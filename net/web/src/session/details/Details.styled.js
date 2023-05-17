@@ -1,23 +1,35 @@
 import styled from 'styled-components';
-import Colors from 'constants/Colors';
+import { LightColors, DarkColors } from 'constants/Colors';
 
 export const DetailsWrapper = styled.div`
   height: 100%;
   width: 100%;
   display: flex;
   flex-direction: column;
-  background-color: ${Colors.statsForm};
+  @media (prefers-color-scheme: light) {
+    background-color: ${LightColors.formBackground};
+    color: ${LightColors.text};
+  }
+  @media (prefers-color-scheme: dark) {
+    background-color: ${DarkColors.formBackground};
+    color: ${DarkColors.text};
+  }
 
   .header {
     width: 100%;
     height: 48px;
-    border-bottom: 1px solid ${Colors.statsDivider};
     display: flex;
     flex-shrink: 0;
     align-items: center;
     justify-content: center;
     font-size: 18px;
     padding: 16px;
+    @media (prefers-color-scheme: light) {
+      border-bottom: 1px solid ${LightColors.divider};
+    }
+    @media (prefers-color-scheme: dark) {
+      border-bottom: 1px solid ${DarkColors.divider};
+    }
 
     .label {
       flex-grow: 1;
@@ -27,8 +39,13 @@ export const DetailsWrapper = styled.div`
 
     .dismiss {
       font-size: 18px;
-      color: ${Colors.text};
       cursor: pointer;
+      @media (prefers-color-scheme: light) {
+        color: ${LightColors.text};
+      }
+      @media (prefers-color-scheme: dark) {
+        color: ${DarkColors.text};
+      }
     }
   }
 
@@ -47,21 +64,26 @@ export const DetailsWrapper = styled.div`
     .label {
       padding-top: 16px;
       width: 100%;
-      border-bottom: 1px solid ${Colors.divider};
       padding-left: 16px;
+      @media (prefers-color-scheme: light) {
+        border-bottom: 1px solid ${LightColors.divider};
+      }
+      @media (prefers-color-scheme: dark) {
+        border-bottom: 1px solid ${DarkColors.divider};
+      }
     }
 
     .members {
       width: 100%;
-      padding-left: 16px;
+      padding-top: 4px;
     }
 
     .button {
       width: 144px;
       padding: 4px;
       border-radius: 4px;
-      color: ${Colors.white};
-      background-color: ${Colors.primary};
+      color: ${LightColors.white};
+      background-color: ${LightColors.primary};
       cursor: pointer;
       margin-bottom: 8px;
       display: flex;
