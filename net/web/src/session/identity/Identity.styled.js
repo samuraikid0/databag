@@ -38,11 +38,9 @@ export const IdentityWrapper = styled.div`
     padding-right: 4px;
     border-radius: 8px;
     @media (prefers-color-scheme: light) {
-      border: 1px solid ${LightColors.itemBorder};
       color: ${LightColors.text};
     }
     @media (prefers-color-scheme: dark) {
-      border: 1px solid ${DarkColors.itemBorder};
       color: ${DarkColors.text};
     }
   }

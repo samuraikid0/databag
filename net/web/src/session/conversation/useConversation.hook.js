@@ -220,16 +220,20 @@ export function useConversation(cardId, channelId) {
           item.assets = message.assets;
           item.text = message.text;
           item.clickable = clickableText(message.text);
-          item.textColor = message.textColor ? message.textColor : '#444444';
           item.textSize = message.textSize ? message.textSize : 14;
+          if (message.textColor) {
+            item.textColor = message.textColor;
+          }
         }
         if (detail.dataType === 'sealedtopic' && state.contentKey) {
           const subject = decryptTopicSubject(detail.data, state.contentKey);
           item.assets = subject.message.assets;
           item.text = subject.message.text;
           item.clickable = clickableText(subject.message.text);
-          item.textColor = subject.message.textColor ? subject.message.textColor : '#444444';
           item.textSize = subject.message.textSize ? subject.message.textSize : 14;
+          if (subject.message.textColor) {
+            item.textColor = subject.message.textColor;
+          }
         }
       }
       catch (err) {

@@ -51,12 +51,10 @@ export const ChannelsWrapper = styled.div`
     .filter {
       @media (prefers-color-scheme: light) {
         color: ${LightColors.text};
-        border: 1px solid ${LightColors.divider};
         background-color: ${LightColors.inputBackground};
       }
       @media (prefers-color-scheme: dark) {
         color: ${DarkColors.text};
-        border: 1px solid ${DarkColors.divider};
         background-color: ${DarkColors.inputBackground};
       }
       border-radius: 8px;

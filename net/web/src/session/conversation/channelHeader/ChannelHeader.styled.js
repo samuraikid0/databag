@@ -1,15 +1,22 @@
 import styled from 'styled-components';
-import Colors from 'constants/Colors';
+import { LightColors, DarkColors } from 'constants/Colors';
 
 export const ChannelHeaderWrapper = styled.div`
   margin-left: 16px;
   margin-right: 16px;
   height: 48px;
-  border-bottom: 1px solid ${Colors.profileDivider};
   display: flex;
   flex-direction: row;
   align-items: center;
   flex-shrink: 0;
+  @media (prefers-color-scheme: light) {
+    color: ${LightColors.text};
+    border-bottom: 1px solid ${LightColors.divider};
+  }
+  @media (prefers-color-scheme: dark) {
+    color: ${DarkColors.text};
+    border-bottom: 1px solid ${DarkColors.divider};
+  }
 
   .title {
     font-size: 18px;
@@ -36,7 +43,7 @@ export const ChannelHeaderWrapper = styled.div`
 
   .button {
     font-size: 18px;
-    color: ${Colors.grey};
+    color: ${LightColors.grey};
     cursor: pointer;
     padding-right: 16px;
     padding-left: 16px;
@@ -44,7 +51,7 @@ export const ChannelHeaderWrapper = styled.div`
 `
 
 export const StatusError = styled.div`
-  color: ${Colors.error};
+  color: ${LightColors.error};
   font-size: 14px;
   padding-left: 8px;
   cursor: pointer;

@@ -103,9 +103,11 @@ export function AddTopic({ contentKey }) {
         </div>
       )}
       <div class="message">
-        <Input.TextArea ref={msg} placeholder="New Message" spellCheck="true" autoSize={{ minRows: 2, maxRows: 6 }}
-            enterkeyhint="send" onKeyDown={(e) => keyDown(e)} onChange={(e) => actions.setMessageText(e.target.value)}
-            value={state.messageText} autocapitalize="none" />
+        <div class="control">
+          <Input.TextArea ref={msg} bordered={false} placeholder="New Message" spellCheck="true" autoSize={{ minRows: 2, maxRows: 6 }}
+              enterkeyhint="send" onKeyDown={(e) => keyDown(e)} onChange={(e) => actions.setMessageText(e.target.value)}
+              value={state.messageText} autocapitalize="none" />
+        </div>
       </div>
       <div class="buttons">
         { state.enableImage && (

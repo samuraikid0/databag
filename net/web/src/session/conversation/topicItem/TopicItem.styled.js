@@ -1,10 +1,16 @@
 import styled from 'styled-components';
-import Colors from 'constants/Colors';
+import { LightColors, DarkColors } from 'constants/Colors';
 
 export const TopicItemWrapper = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
+  @media (prefers-color-scheme: light) {
+    color: ${LightColors.text};
+  }
+  @media (prefers-color-scheme: dark) {
+    color: ${DarkColors.text};
+  }
 
   .topic-header {
     display: flex;
@@ -13,7 +19,12 @@ export const TopicItemWrapper = styled.div`
     padding-left: 16px;
     margin-right: 16px;
     padding-top: 8px;
-    border-top: 1px solid #dddddd;
+    @media (prefers-color-scheme: light) {
+      border-top: 1px solid ${LightColors.itemDivider};
+    }
+    @media (prefers-color-scheme: dark) {
+      border-top: 1px solid ${DarkColors.itemDivider};
+    }
 
     &:hover .topic-options {
       visibility: visible;
@@ -40,11 +51,11 @@ export const TopicItemWrapper = styled.div`
         }
 
         .remove {
-          color: ${Colors.warn};
+          color: ${LightColors.warn};
         }
 
         .edit {
-          color: ${Colors.primary};
+          color: ${LightColors.primary};
         }
       }
     }
@@ -70,25 +81,47 @@ export const TopicItemWrapper = styled.div`
         font-weight: bold;
         color: #444444;
         padding-right: 8px;
+        @media (prefers-color-scheme: light) {
+          color: ${LightColors.text};
+        }
+        @media (prefers-color-scheme: dark) {
+          color: ${DarkColors.text};
+        }
       }
       .unset {
         font-weight: bold;
         font-style: italic;
-        color: #888888;
         padding-right: 8px;
+        @media (prefers-color-scheme: light) {
+          color: ${LightColors.dimText};
+        }
+        @media (prefers-color-scheme: dark) {
+          color: ${DarkColors.dimText};
+        }
       }
       .unknown {
         font-style: italic;
         color: #aaaaaa;
         padding-right: 8px;
+        @media (prefers-color-scheme: light) {
+          color: ${LightColors.dimText};
+        }
+        @media (prefers-color-scheme: dark) {
+          color: ${DarkColors.dimText};
+        }
       }
     }
   }
 
   .sealed-message {
     font-style: italic;
-    color: #aaaaaa;
     padding-left: 72px;
+    @media (prefers-color-scheme: light) {
+      color: ${LightColors.dimText};
+    }
+    @media (prefers-color-scheme: dark) {
+      color: ${DarkColors.dimText};
+    }
   }
 
   .asset-placeholder {
@@ -98,8 +131,13 @@ export const TopicItemWrapper = styled.div`
     align-items: center;
     justify-content: center;
     background-color: #eeeeee;
-    color: #888888;
     margin-left: 72px;
+    @media (prefers-color-scheme: light) {
+      color: ${LightColors.dimText};
+    }
+    @media (prefers-color-scheme: dark) {
+      color: ${DarkColors.dimText};
+    }
   }
 
   .topic-assets {

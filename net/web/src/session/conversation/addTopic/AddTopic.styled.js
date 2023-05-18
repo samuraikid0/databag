@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import Colors from 'constants/Colors';
+import { LightColors, DarkColors } from 'constants/Colors';
 
 export const AddTopicWrapper = styled.div`
   width: 100%;
@@ -12,6 +12,37 @@ export const AddTopicWrapper = styled.div`
     padding-right: 32px;
     padding-top: 8px;
     padding-bottom: 8px;
+
+    .control {
+      @media (prefers-color-scheme: light) {
+        color: ${LightColors.text};
+        background-color: ${LightColors.inputBackground};
+      }
+      @media (prefers-color-scheme: dark) {
+        color: ${DarkColors.text};
+        background-color: ${DarkColors.inputBackground};
+      }
+      border-radius: 8px;
+      flex-grow: 1;
+
+      .ant-input {
+        @media (prefers-color-scheme: light) {
+          color: ${LightColors.text};
+        }
+        @media (prefers-color-scheme: dark) {
+          color: ${DarkColors.text};
+        }
+
+        ::placeholder {
+          @media (prefers-color-scheme: light) {
+            color: ${LightColors.dimText};
+          }
+          @media (prefers-color-scheme: dark) {
+            color: ${DarkColors.dimText};
+          }
+        }
+      }
+    }
   }
 
   .assets {
@@ -30,7 +61,7 @@ export const AddTopicWrapper = styled.div`
     align-items: center;
     
     .bar {
-      border-left: 1px solid ${Colors.encircle};
+      border-left: 1px solid ${LightColors.encircle};
       height: 36px;
       padding-right 8px;
       margin-left: 8px;
@@ -44,10 +75,15 @@ export const AddTopicWrapper = styled.div`
       width: 36px;
       height: 36px;
       cursor: pointer;
-      border: 1px solid ${Colors.divider};
-      background-color: ${Colors.white};
       font-size: 18px;
-      color: ${Colors.enabled};
+      @media (prefers-color-scheme: light) {
+        background-color: ${LightColors.formBackground};
+        color: ${LightColors.text};
+      }
+      @media (prefers-color-scheme: dark) {
+        background-color: ${DarkColors.formBackground};
+        color: ${DarkColors.text};
+      }
     }
 
     .space {

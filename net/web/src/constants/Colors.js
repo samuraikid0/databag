@@ -2,6 +2,7 @@ export const LightColors = {
   background: '#8fbea7',
   primary: '#448866',
   formBackground: '#f2f2f2',
+  threadBackground: '#f0f0f0',
   itemBorder: '#f2f2f2',
   darkBackground: '#222222',
   formFocus: '#f8f8f8',
@@ -45,7 +46,8 @@ export const LightColors = {
 export const DarkColors = {
   background: '#424242',
   primary: '#448866',
-  formBackground: '#222222',
+  threadBackground: '#222222',
+  formBackground: '#181818',
   itemBorder: '#aaaaaa',
   darkBackground: '#222222',
   formFocus: '#282828',
@@ -66,7 +68,7 @@ export const DarkColors = {
   backgroundText: '#999999',
   link: '#0077CC',
   inputBackground: '#111111',
-  itemDivider: '#555555',
+  itemDivider: '#444444',
   
   connected: '#44cc44',
   connecting: '#dd88ff',

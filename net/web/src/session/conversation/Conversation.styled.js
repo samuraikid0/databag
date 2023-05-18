@@ -1,22 +1,32 @@
 import styled from 'styled-components';
-import Colors from 'constants/Colors';
+import { LightColors, DarkColors } from 'constants/Colors';
 
 export const ConversationWrapper = styled.div`
   height: 100%;
   width: 100%;
   display: flex;
   flex-direction: column;
-  background-color: ${Colors.profileForm};
+  @media (prefers-color-scheme: light) {
+    background-color: ${LightColors.threadBackground};
+  }
+  @media (prefers-color-scheme: dark) {
+    background-color: ${DarkColors.threadBackground};
+  }
 
   .header {
     margin-left: 16px;
     margin-right: 16px;
     height: 48px;
-    border-bottom: 1px solid ${Colors.profileDivider};
     display: flex;
     flex-direction: row;
     align-items: center;
     flex-shrink: 0;
+    @media (prefers-color-scheme: light) {
+      color: ${LightColors.text};
+    }
+    @media (prefers-color-scheme: dark) {
+      color: ${DarkColors.text};
+    }
 
     .title {
       font-size: 18px;
@@ -43,7 +53,7 @@ export const ConversationWrapper = styled.div`
 
     .button {
       font-size: 18px;
-      color: ${Colors.grey};
+      color: ${LightColors.grey};
       cursor: pointer;
       padding-right: 16px;
       padding-left: 16px;
@@ -65,7 +75,7 @@ export const ConversationWrapper = styled.div`
       align-items: center;
       justify-content: center;
       font-size: 20;
-      color: ${Colors.grey};
+      color: ${LightColors.grey};
     }
 
     .loading {
@@ -85,21 +95,31 @@ export const ConversationWrapper = styled.div`
     padding-right: 16px;
     
     .line {
-      border-top: 1px solid ${Colors.divider};
+      @media (prefers-color-scheme: light) {
+        border-top: 1px solid ${LightColors.divider};
+      }
+      @media (prefers-color-scheme: dark) {
+        border-top: 1px solid ${DarkColors.divider};
+      }
     }
 
     .progress-idle {
-      border-top: 1px solid ${Colors.divider};
+      @media (prefers-color-scheme: light) {
+        border-top: 1px solid ${LightColors.divider};
+      }
+      @media (prefers-color-scheme: dark) {
+        border-top: 1px solid ${DarkColors.divider};
+      }
       height: 1px;
     }
 
     .progress-active {
-      border-top: 1px solid ${Colors.primary};
+      border-top: 1px solid ${LightColors.primary};
       height: 1px;
     }
 
     .progress-error {
-      border-top: 1px solid ${Colors.alert};
+      border-top: 1px solid ${LightColors.alert};
       width: 100%;
       height: 1px;
       display: flex;
@@ -122,7 +142,7 @@ export const ConversationWrapper = styled.div`
 `
 
 export const StatusError = styled.div`
-  color: ${Colors.error};
+  color: ${LightColors.error};
   font-size: 14px;
   padding-left: 8px;
   cursor: pointer;
