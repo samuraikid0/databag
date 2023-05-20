@@ -16,6 +16,7 @@ import { BottomNav } from './bottomNav/BottomNav';
 import { Logo } from 'logo/Logo';
 import { EyeInvisibleOutlined, PhoneOutlined } from '@ant-design/icons';
 import { IoVideocamOffOutline, IoVideocamOutline, IoMicOffOutline, IoMicOutline, IoCallOutline } from "react-icons/io5";
+import { LightColors, DarkColors } from 'constants/Colors';
 
 export function Session() {
 
@@ -26,6 +27,16 @@ export function Session() {
   const [callModal, setCallModal] = useState({ width: 256, height: 256, offset: 0 });
   const remote = useRef();
   const local = useRef();
+  const [drawerStyle, setDrawerStyle] = useState({});
+
+  useEffect(() => {
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      setDrawerStyle({ padding: 0, backgroundColor: DarkColors.formBackground });
+    }
+    else {
+      setDrawerStyle({ padding: 0, backgroundColor: LightColors.formBackground });
+    }
+  }, []);
 
   useEffect(() => {
     let incoming = [];
@@ -241,7 +252,7 @@ export function Session() {
                     cardId={state.cardId} channelId={state.channelId} />
               </div>
             )}
-            <Drawer bodyStyle={{ padding: 0 }} width={'33%'} closable={false} onClose={actions.closeDetails} visible={state.details} zIndex={10}>
+            <Drawer bodyStyle={drawerStyle} width={'33%'} closable={false} onClose={actions.closeDetails} visible={state.details} zIndex={10}>
               { state.details && (
                 <Details closeDetails={actions.closeDetails} closeConversation={closeConversation} openContact={actions.openContact}
                     cardId={state.cardId} channelId={state.channelId} />
