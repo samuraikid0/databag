@@ -6,12 +6,14 @@ import { Logo } from 'utils/Logo';
 import { Colors } from 'constants/Colors';
 
 export function ContactHeader({ contact }) {
+  const handle = contact?.node ? `${contact?.handle}@${contact?.node}` : contact?.handle;
   return (
-    <Text style={styles.headerText}>{ `${contact?.handle}@${contact?.node}` }</Text>
+    <Text style={styles.headerText}>{ handle }</Text>
   )
 }
 
 export function ContactBody({ contact }) {
+
   const { state, actions } = useContact(contact);
 
   const getStatusText = (status) => {
@@ -198,6 +200,11 @@ export function ContactBody({ contact }) {
             <TouchableOpacity style={styles.button} onPress={reportContact}>
               <Text style={styles.buttonText}>Report Contact</Text>
             </TouchableOpacity>
+            { state.offsync && (
+              <TouchableOpacity style={styles.alert} onPress={actions.resync}>
+                <Text>Resync Contact</Text>
+              </TouchableOpacity>
+            )}
           </>
         )}
         { state.status === 'connecting' && (
@@ -285,11 +292,6 @@ export function ContactBody({ contact }) {
               <Text style={styles.buttonText}>Report Contact</Text>
             </TouchableOpacity>
           </>
-        )}
-        { state.offsync && (
-          <TouchableOpacity style={styles.alert} onPress={actions.resync}>
-            <Text style={styles.alertText}>Resync Contact</Text>
-          </TouchableOpacity>
         )}
       </View>
     </View>

@@ -58,6 +58,7 @@ export const IdentityWrapper = styled.div`
     @media (prefers-color-scheme: dark) {
       color: ${DarkColors.text};
     }
+    min-width: 0;
 
     .name {
       font-size: 14px;
