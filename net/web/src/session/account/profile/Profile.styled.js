@@ -1,18 +1,44 @@
 import styled from 'styled-components';
-import Colors from 'constants/Colors';
+import { DarkColors, LightColors } from 'constants/Colors';
 
 export const ProfileWrapper = styled.div`
   height: 100%;
   width: 100%;
   display: flex;
   flex-direction: column;
-  background-color: ${Colors.profileForm};
+  @media (prefers-color-scheme: light) {
+    color: ${LightColors.text};
+  }
+  @media (prefers-color-scheme: dark) {
+    color: ${DarkColors.text};
+  }
+
+  .thread {
+    @media (prefers-color-scheme: light) {
+      height: 100%;
+      background-color: ${LightColors.threadBackground};
+    }
+    @media (prefers-color-scheme: dark) {
+      height: 100%;
+      background-color: ${DarkColors.threadBackground};
+    }
+  }
+
+  .column {
+    @media (prefers-color-scheme: light) {
+      background-color: ${LightColors.formBackground};
+    }
+    @media (prefers-color-scheme: dark) {
+      background-color: ${DarkColors.formBackground};
+    }
+  }
+
 
   .middleHeader {
     margin-left: 16px;
     margin-right: 16px;
     height: 48px;
-    border-bottom: 1px solid ${Colors.profileDivider};
+    border-bottom: 1px solid ${LightColors.profileDivider};
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -27,9 +53,15 @@ export const ProfileWrapper = styled.div`
 
     .close {
       font-size: 16px;
-      color: ${Colors.primary};
+      color: ${LightColors.primary};
       cursor: pointer;
       padding-right: 16px;
+      @media (prefers-color-scheme: light) {
+        color: ${LightColors.link};
+      }
+      @media (prefers-color-scheme: dark) {
+        color: ${DarkColors.link};
+      }
     }
   }
 
@@ -48,13 +80,13 @@ export const ProfileWrapper = styled.div`
 
   .section {
     width: 100%;
-    color: ${Colors.grey};
+    color: ${LightColors.grey};
     padding-top: 24px;
     font-size: 12px;
     display: flex;
     widtH: 75%;
     justify-content: center;
-    border-bottom: 1px solid ${Colors.divider};
+    border-bottom: 1px solid ${LightColors.divider};
   }
 
   .logo {
@@ -79,8 +111,8 @@ export const ProfileWrapper = styled.div`
       height: 24px;
       bottom: 0;
       right: 0;
-      color: ${Colors.link};
-      background-color: ${Colors.white};
+      color: ${LightColors.link};
+      background-color: ${LightColors.white};
       opacity: 0.7;
     }
   }
@@ -112,7 +144,7 @@ export const ProfileWrapper = styled.div`
 
     .notset {
       font-style: italic;
-      color: ${Colors.grey};
+      color: ${LightColors.grey};
     }
 
     .name {
@@ -122,14 +154,14 @@ export const ProfileWrapper = styled.div`
       cursor: pointer;
 
       &:hover .icon {
-        border: 1px solid ${Colors.grey};
-        background-color: ${Colors.white};
+        border: 1px solid ${LightColors.grey};
+        background-color: ${LightColors.white};
       }  
 
       .icon {
         padding-left: 4px;
         padding-right: 4px;
-        border: 1px solid ${Colors.profileForm};
+        border: 1px solid ${LightColors.profileForm};
         border-raidus: 4px;
       }
 
@@ -183,8 +215,8 @@ export const ProfileWrapper = styled.div`
     flex-direction: row;
     align-items: center;
     cursor: pointer;
-    color: ${Colors.white};
-    background-color: ${Colors.primary};
+    color: ${LightColors.white};
+    background-color: ${LightColors.primary};
     margin-top: 8px;
     padding: 8px;
     border-radius: 4px;

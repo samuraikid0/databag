@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import Colors from 'constants/Colors';
+import { DarkColors, LightColors } from 'constants/Colors';
 
 export const AccountAccessWrapper = styled.div`
   display: flex;
@@ -15,12 +15,12 @@ export const AccountAccessWrapper = styled.div`
     padding-bottom: 8px;
 
     .switchEnabled {
-      color: ${Colors.primary};
+      color: ${LightColors.primary};
       cursor: pointer;
     }
 
     .switchDisabled {
-      color: ${Colors.grey};
+      color: ${LightColors.grey};
     }
 
     .switchLabel {
@@ -34,9 +34,15 @@ export const AccountAccessWrapper = styled.div`
     flex-direction: row;
     align-items: center;
     cursor: pointer;
-    color: ${Colors.primary};
     padding-top: 8px;
     padding-bottom: 8px;
+
+    @media (prefers-color-scheme: light) {
+      color: ${LightColors.link};
+    }
+    @media (prefers-color-scheme: dark) {
+      color: ${DarkColors.link};
+    }
   
     .label {
       padding-left: 8px;
@@ -58,7 +64,7 @@ export const SealModal = styled.div`
     justify-content: center;
 
     .switchLabel {
-      color: ${Colors.text};
+      color: ${LightColors.text};
       padding-left: 8px;
       padding-right: 8px;
     }

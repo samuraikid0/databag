@@ -21,7 +21,7 @@ export const LightColors = {
   text: '#444444',
   dimText: '#888888',
   backgroundText: '#444444',
-  link: '#0077CC',
+  link: '448866',
   inputBackground: '#ffffff',
   itemDivider: '#eeeeee',
   
@@ -66,7 +66,7 @@ export const DarkColors = {
   text: '#eeeeee',
   dimText: '#aaaaaa',
   backgroundText: '#999999',
-  link: '#0077CC',
+  link: '#66cc88',
   inputBackground: '#111111',
   itemDivider: '#444444',
   

@@ -1,17 +1,24 @@
 import styled from 'styled-components';
-import Colors from 'constants/Colors';
+import { LightColors, DarkColors } from 'constants/Colors';
 
 export const AccountWrapper = styled.div`
   height: 100%;
   width: 100%;
   display: flex;
   flex-direction: column;
-  background-color: ${Colors.statsForm};
+  @media (prefers-color-scheme: light) {
+    background-color: ${LightColors.formFocus};
+    color: ${LightColors.text};
+  }
+  @media (prefers-color-scheme: dark) {
+    background-color: ${DarkColors.formFocus};
+    color: ${DarkColors.text};
+  }
 
   .header {
     width: 100%;
     height: 48px;
-    border-bottom: 1px solid ${Colors.statsDivider};
+    border-bottom: 1px solid ${LightColors.statsDivider};
     display: flex;
     flex-shrink: 0;
     align-items: center;
@@ -27,7 +34,12 @@ export const AccountWrapper = styled.div`
 
     .dismiss {
       font-size: 18px;
-      color: ${Colors.text};
+      @media (prefers-color-scheme: light) {
+        color: ${LightColors.link};
+      }
+      @media (prefers-color-scheme: dark) {
+        color: ${DarkColors.link};
+      }
       cursor: pointer;
     }
   }
@@ -50,7 +62,12 @@ export const AccountWrapper = styled.div`
       padding-bottom: 16px;
 
       .link {
-        color: ${Colors.primary};
+        @media (prefers-color-scheme: light) {
+          color: ${LightColors.link};
+        }
+        @media (prefers-color-scheme: dark) {
+          color: ${DarkColors.link};
+        }
         padding-top: 16px;
         padding-bottom: 8px;
         display: flex;

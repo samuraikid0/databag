@@ -283,7 +283,7 @@ export function Session() {
                 )}
               </Drawer>
             </Drawer>
-            <Drawer bodyStyle={{ padding: 0 }} width={'33%'} closable={false} onClose={closeAccount} visible={state.profile || state.account} zIndex={40}>
+            <Drawer bodyStyle={drawerStyle} width={'33%'} closable={false} onClose={closeAccount} visible={state.profile || state.account} zIndex={40}>
               { (state.profile || state.account) && (
                 <Profile closeProfile={closeAccount}/>
               )}

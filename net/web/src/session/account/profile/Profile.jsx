@@ -90,73 +90,75 @@ export function Profile({ closeProfile }) {
   return (
     <ProfileWrapper>
       { modalContext }
-      { state.display === 'xlarge' && (
-        <div className="middleHeader">
-          <div className="handle">{ state.handle }</div>
-          <div className="close" onClick={closeProfile}>
-            <RightOutlined />
+      <div className={ state.display === 'xlarge' ? 'thread' : 'column' }>
+        { state.display === 'xlarge' && (
+          <div className="middleHeader">
+            <div className="handle">{ state.handle }</div>
+            <div className="close" onClick={closeProfile}>
+              <RightOutlined />
+            </div>
           </div>
-        </div>
-      )}
-      { state.display !== 'xlarge' && (
-        <div className="rightHeader">
-          <div className="title">{ state.handle }</div>
-          <div className="section">Profile Settings</div>
-        </div>
-      )}
-      <div className={ state.display === 'xlarge' ? 'midContent' : 'rightContent' }>
-        <div className="logo" onClick={actions.setEditProfileImage}>
-          <Logo url={state.url} width={'100%'} radius={4} />
-          <div className="edit">
-            <EditOutlined />
+        )}
+        { state.display !== 'xlarge' && (
+          <div className="rightHeader">
+            <div className="title">{ state.handle }</div>
+            <div className="section">Profile Settings</div>
           </div>
-        </div>
-        <div className="details">
-          <div className="name" onClick={actions.setEditProfileDetails}>
-            { state.name && (
-              <div className="data">{ state.name }</div>
-            )}
-            { !state.name && (
-              <div className="data notset">name</div>
-            )}
-            <div className="icon">
+        )}
+        <div className={ state.display === 'xlarge' ? 'midContent' : 'rightContent' }>
+          <div className="logo" onClick={actions.setEditProfileImage}>
+            <Logo url={state.url} width={'100%'} radius={4} />
+            <div className="edit">
               <EditOutlined />
             </div>
           </div>
-          <div className="location">
-            <EnvironmentOutlined />
-              { state.location && (
-                <div className="data">{ state.location }</div>
+          <div className="details">
+            <div className="name" onClick={actions.setEditProfileDetails}>
+              { state.name && (
+                <div className="data">{ state.name }</div>
               )}
-              { !state.location && (
-                <div className="data notset">location</div>
+              { !state.name && (
+                <div className="data notset">name</div>
               )}
-          </div>
-          <div className="description">
-            <BookOutlined />
-            { state.description && (
-              <div className="data">{ state.description }</div>
-            )}
-            { !state.description && (
-              <div className="data notset">description</div>
-            )}
-          </div>
-        </div>
-      </div>
-      { state.display !== 'xlarge' && (
-        <div className="account">
-          <div className="section">Account Settings</div>
-          <div className="controls">
-            <AccountAccess />
-            { state.display === 'small' && (
-              <div className="logout" onClick={logout}>
-                <LogoutOutlined />
-                <div className="label">Logout</div>
+              <div className="icon">
+                <EditOutlined />
               </div>
-            )}
+            </div>
+            <div className="location">
+              <EnvironmentOutlined />
+                { state.location && (
+                  <div className="data">{ state.location }</div>
+                )}
+                { !state.location && (
+                  <div className="data notset">location</div>
+                )}
+            </div>
+            <div className="description">
+              <BookOutlined />
+              { state.description && (
+                <div className="data">{ state.description }</div>
+              )}
+              { !state.description && (
+                <div className="data notset">description</div>
+              )}
+            </div>
           </div>
         </div>
-      )}
+        { state.display !== 'xlarge' && (
+          <div className="account">
+            <div className="section">Account Settings</div>
+            <div className="controls">
+              <AccountAccess />
+              { state.display === 'small' && (
+                <div className="logout" onClick={logout}>
+                  <LogoutOutlined />
+                  <div className="label">Logout</div>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+      </div>
       <Modal title="Profile Image" centered visible={state.editProfileImage} footer={editImageFooter}
           bodyStyle={{ padding: 16 }} onCancel={actions.clearEditProfileImage}>
 
