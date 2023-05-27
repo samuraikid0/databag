@@ -1,19 +1,47 @@
 import styled from 'styled-components';
-import Colors from 'constants/Colors';
+import { DarkColors, LightColors } from 'constants/Colors';
 
 export const ContactWrapper = styled.div`
   height: 100%;
   width: 100%;
-  display: flex;
-  flex-direction: column;
-  background-color: ${Colors.profileForm};
 
+  .thread {
+    @media (prefers-color-scheme: light) {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      background-color: ${LightColors.threadBackground};
+      color: ${LightColors.text};
+    }
+    @media (prefers-color-scheme: dark) {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      background-color: ${DarkColors.threadBackground};
+      color: ${DarkColors.text};
+    }
+  }
+
+  .column {
+    @media (prefers-color-scheme: light) {
+      display: flex;
+      flex-direction: column;
+      background-color: ${LightColors.formBackground};
+      olor: ${LightColors.text};
+    }
+    @media (prefers-color-scheme: dark) {
+      display: flex;
+      flex-direction: column;
+      background-color: ${DarkColors.formBackground};
+      color: ${DarkColors.text};
+    }
+  }
 
   .header {
     margin-left: 16px;
     margin-right: 16px;
     height: 48px;
-    border-bottom: 1px solid ${Colors.profileDivider};
+    border-bottom: 1px solid ${LightColors.profileDivider};
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -28,7 +56,6 @@ export const ContactWrapper = styled.div`
 
     .close {
       font-size: 18px;
-      color: ${Colors.primary};
       cursor: pointer;
       padding-right: 16px;
     }
@@ -66,7 +93,7 @@ export const ContactWrapper = styled.div`
 
     .notset {
       font-style: italic;
-      color: ${Colors.grey};
+      color: ${LightColors.grey};
     }
 
     .name {
@@ -127,7 +154,7 @@ export const ContactWrapper = styled.div`
       }
 
       .close {
-        color: ${Colors.primary};
+        color: ${LightColors.primary};
         cursor: pointer;
         width: 64px;
         display: flex;
@@ -151,8 +178,8 @@ export const ContactWrapper = styled.div`
       align-items: center;
       justify-content: center;
       border-radius: 2px;
-      color: ${Colors.white};
-      background-color: ${Colors.primary};
+      color: ${LightColors.white};
+      background-color: ${LightColors.primary};
     }
 
     .label {
@@ -178,7 +205,7 @@ export const ContactWrapper = styled.div`
     align-items: flex-end;
     justify-content: center;
     padding-bottom: 16px;
-    color: ${Colors.grey};
+    color: ${LightColors.grey};
   }
 `
 

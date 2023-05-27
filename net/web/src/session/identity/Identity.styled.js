@@ -100,3 +100,12 @@ export const InfoNotice = styled.div`
   }
 `
 
+export const MenuItem = styled.div`
+  @media (prefers-color-scheme: light) {
+    color: ${LightColors.text};
+  }
+  @media (prefers-color-scheme: dark) {
+    color: ${DarkColors.text};
+  }
+`
+

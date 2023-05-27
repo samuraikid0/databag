@@ -1,13 +1,25 @@
 import { Modal, Dropdown, Menu, Tooltip } from 'antd';
 import { Logo } from 'logo/Logo';
-import { IdentityWrapper, ErrorNotice, InfoNotice } from './Identity.styled';
+import { useState, useEffect } from 'react'; 
+import { IdentityWrapper, MenuItem, ErrorNotice, InfoNotice } from './Identity.styled';
 import { useIdentity } from './useIdentity.hook';
 import { LogoutOutlined, InfoCircleOutlined, ExclamationCircleOutlined, DownOutlined } from '@ant-design/icons';
+import { DarkColors, LightColors } from 'constants/Colors';
 
 export function Identity({ openAccount, openCards, cardUpdated }) {
 
   const [modal, modalContext] = Modal.useModal();
   const { state, actions } = useIdentity();
+  const [menuStyle, setMenuStyle] = useState({});
+
+  useEffect(() => {
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      setMenuStyle({ backgroundColor: DarkColors.menuBackground, color: DarkColors.text });
+    }
+    else {
+      setMenuStyle({ backgroundColor: LightColors.menuBackground, color: LightColors.text });
+    }
+  }, []);
 
   const logout = () => {
     modal.confirm({
@@ -22,15 +34,15 @@ export function Identity({ openAccount, openCards, cardUpdated }) {
   }
 
   const menu = (
-    <Menu>
+    <Menu style={menuStyle}>
       <Menu.Item key="0">
-        <div onClick={openAccount}>Account</div>
+        <MenuItem onClick={openAccount}>Account</MenuItem>
       </Menu.Item>
       <Menu.Item key="1">
-        <div onClick={openCards}>Contacts</div>
+        <MenuItem onClick={openCards}>Contacts</MenuItem>
       </Menu.Item>
       <Menu.Item key="2">
-        <div onClick={logout}>Logout</div>
+        <MenuItem onClick={logout}>Logout</MenuItem>
       </Menu.Item>
     </Menu>
   );

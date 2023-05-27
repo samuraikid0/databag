@@ -41,6 +41,7 @@ export const LightColors = {
   card: '#eeeeee',
 
   selectHover: '#fafafa',
+  menuBackground: '#eeeeee',
 };
 
 export const DarkColors = {
@@ -86,6 +87,7 @@ export const DarkColors = {
   card: '#eeeeee',
 
   selectHover: '#555555',
+  menuBackground: '#555555',
 };
 
 export default LightColors;

@@ -1,18 +1,30 @@
 import styled from 'styled-components';
-import Colors from 'constants/Colors';
+import { DarkColors, LightColors } from 'constants/Colors';
 
 export const ListingItemWrapper = styled.div`
   height: 48px;
   width: 100%;
   display: flex;
   align-items: center;
-  border-bottom: 1px solid ${Colors.divider};
   padding-left: 16px;
   padding-right: 16px;
+  @media (prefers-color-scheme: light) {
+    border-bottom: 1px solid ${LightColors.itemDivider};
+    color: ${LightColors.text};
+  }
+  @media (prefers-color-scheme: dark) {
+    border-bottom: 1px solid ${DarkColors.itemDivider};
+    color: ${DarkColors.text};
+  }
 
   &:hover {
-    background-color: ${Colors.formHover};
     cursor: pointer;
+    @media (prefers-color-scheme: light) {
+      background-color: ${LightColors.formHover};
+    }
+    @media (prefers-color-scheme: dark) {
+      background-color: ${DarkColors.formHover};
+    }
   }
 
   .details {

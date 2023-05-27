@@ -86,7 +86,6 @@ export const CardsWrapper = styled.div`
       border-radius: 8px;
       flex-grow: 1;
 
-
       .ant-input-prefix {
         @media (prefers-color-scheme: light) {
           color: ${LightColors.text};

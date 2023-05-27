@@ -44,7 +44,7 @@ export function Listing({ closeListing, openContact }) {
                 disabled={state.disabled} onChange={(e) => actions.onNode(e.target.value)} />
           </div>
           { state.showFilter && (
-            <div class="username">
+            <div class="node username">
               <Input bordered={false} allowClear={true} placeholder="Username" 
                   prefix={<UserOutlined />} value={state.username} spellCheck="false" 
                   onChange={(e) => actions.setUsername(e.target.value)} />
@@ -52,14 +52,14 @@ export function Listing({ closeListing, openContact }) {
           )}
         </div>
         <div class="inline">
-          <Button type="text" icon={<SearchOutlined />} loading={state.busy} onClick={getListing}></Button>
+          <Button className="control" type="text" icon={<SearchOutlined />} loading={state.busy} onClick={getListing}></Button>
         </div>
         <div class="inline">
           { state.display !== 'small' && (
-            <Button type="text" icon={<DownOutlined />} onClick={closeListing}></Button>
+            <Button className="control" type="text" icon={<DownOutlined />} onClick={closeListing}></Button>
           )}
           { state.display === 'small' && (
-            <Button type="text" icon={<CloseOutlined />} onClick={closeListing}></Button>
+            <Button className="control" type="text" icon={<CloseOutlined />} onClick={closeListing}></Button>
           )}
         </div>
       </div>
