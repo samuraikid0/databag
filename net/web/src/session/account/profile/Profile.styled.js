@@ -57,10 +57,10 @@ export const ProfileWrapper = styled.div`
       cursor: pointer;
       padding-right: 16px;
       @media (prefers-color-scheme: light) {
-        color: ${LightColors.link};
+        color: ${LightColors.text};
       }
       @media (prefers-color-scheme: dark) {
-        color: ${DarkColors.link};
+        color: ${DarkColors.text};
       }
     }
   }

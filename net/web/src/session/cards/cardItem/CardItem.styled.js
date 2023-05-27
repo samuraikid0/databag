@@ -1,18 +1,31 @@
 import styled from 'styled-components';
-import Colors from 'constants/Colors';
+import { DarkColors, LightColors } from 'constants/Colors';
 
 export const CardItemWrapper = styled.div`
   height: 48px;
   width: 100%;
   display: flex;
   align-items: center;
-  border-bottom: 1px solid ${Colors.divider};
   padding-left: 16px;
   padding-right: 16px;
+  @media (prefers-color-scheme: light) {
+    border-bottom: 1px solid ${LightColors.itemDivider};
+    color: ${LightColors.text};
+  }
+  @media (prefers-color-scheme: dark) {
+    border-bottom: 1px solid ${DarkColors.itemDivider};
+    color: ${DarkColors.text};
+  }
 
   &:hover {
-    background-color: ${Colors.formHover};
-    cursor: pointer;
+    @media (prefers-color-scheme: light) {
+      background-color: ${LightColors.formHover};
+      cursor: pointer;
+    }
+    @media (prefers-color-scheme: dark) {
+      background-color: ${DarkColors.formHover};
+      cursor: pointer;
+    }
   }
 
   .details {
@@ -50,16 +63,21 @@ export const CardItemWrapper = styled.div`
 `;
 
 export const StatusError = styled.div`
-  color: ${Colors.error};
+  color: ${LightColors.error};
   font-size: 14px;
   padding-right: 12px;
 `
 
 export const ComOptions = styled.div`
-  color: ${Colors.primary};
   font-size: 16px;
   display: flex;
   flex-direction: row;
+  @media (prefers-color-scheme: light) {
+    color: ${LightColors.link};
+  }
+  @media (prefers-color-scheme: dark) {
+    color: ${DarkColors.link};
+  }
 
   .option {
     padding-right: 12px;
@@ -68,35 +86,35 @@ export const ComOptions = styled.div`
 `
 
 export const StatusConnected = styled.div`
-  background-color: ${Colors.connected};
+  background-color: ${LightColors.connected};
   border-radius: 8px;
   width: 8px;
   height: 8px;
 `;
 
 export const StatusConnecting = styled.div`
-  background-color: ${Colors.connecting};
+  background-color: ${LightColors.connecting};
   border-radius: 8px;
   width: 8px;
   height: 8px;
 `;
 
 export const StatusRequested = styled.div`
-  background-color: ${Colors.requested};
+  background-color: ${LightColors.requested};
   border-radius: 8px;
   width: 8px;
   height: 8px;
 `;
 
 export const StatusPending = styled.div`
-  background-color: ${Colors.pending};
+  background-color: ${LightColors.pending};
   border-radius: 8px;
   width: 8px;
   height: 8px;
 `;
 
 export const StatusConfirmed = styled.div`
-  background-color: ${Colors.confirmed};
+  background-color: ${LightColors.confirmed};
   border-radius: 8px;
   width: 8px;
   height: 8px;

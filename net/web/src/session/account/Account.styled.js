@@ -35,10 +35,10 @@ export const AccountWrapper = styled.div`
     .dismiss {
       font-size: 18px;
       @media (prefers-color-scheme: light) {
-        color: ${LightColors.link};
+        color: ${LightColors.text};
       }
       @media (prefers-color-scheme: dark) {
-        color: ${DarkColors.link};
+        color: ${DarkColors.text};
       }
       cursor: pointer;
     }
