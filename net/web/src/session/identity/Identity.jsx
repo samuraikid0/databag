@@ -23,9 +23,9 @@ export function Identity({ openAccount, openCards, cardUpdated }) {
 
   const logout = () => {
     modal.confirm({
-      title: 'Are you sure you want to logout?',
+      title: <div style={menuStyle}>Are you sure you want to logout?</div>,
       icon: <LogoutOutlined />,
-      bodyStyle: { padding: 16 },
+      bodyStyle: { padding: 16, ...menuStyle },
       onOk() {
         actions.logout();
       },
